@@ -15,7 +15,7 @@
             border-radius: 5px;
             width: 100%;
         }
-        form{
+        form {
             width: 90%;
             min-width: 250px;
             max-width: 350px;
@@ -29,32 +29,32 @@
             align-items: center;
             background-color: ghostwhite;
         }
-        .placeholder{
+        .placeholder {
             flex: 1;
         }
     </style>
 
     <script type="text/javascript">
-        document.addEventListener("DOMContentLoaded", function(){
-            let btn = document.querySelector('input[type=submit]');
-            btn.addEventListener('click', async function(event){
-                event.preventDefault();
-                let username = document.querySelector('input[name=username]').value;
-                let password = document.querySelector('input[name=password]').value;
-                let response = await fetch("/login", {
-                    method: "POST",
-                    headers: {'Content-Type': 'application/json'},
-                    body: `{"username": "${username}", "password": "${password}"}`
-                });
-                let response_json = await response.json();
-                if (response_json.success){
-                    let body = document.querySelector('body');
-                    body.style.backgroundColor = "white";
-                    body.style.display = "block";
-                    body.innerHTML = response_json.message;
-                }
-            })
+    document.addEventListener("DOMContentLoaded", function(){
+        let btn = document.querySelector('input[type=submit]');
+        btn.addEventListener('click', async function(event){
+            event.preventDefault();
+            let username = document.querySelector('input[name=username]').value;
+            let password = document.querySelector('input[name=password]').value;
+            let response = await fetch("/login", {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: `{"username": "${username}", "password": "${password}"}`
+            });
+            let response_json = await response.json();
+            let body = document.querySelector('body');
+            body.style.display = "block";
+            body.innerHTML = response_json.message;
+            if (response_json.success) {
+                body.style.backgroundColor = "white";
+            }
         })
+    })
     </script>
 </head>
 <body>

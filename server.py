@@ -8,7 +8,6 @@ from typing import Optional
 
 from fastapi import FastAPI, Form, Cookie, Body
 from fastapi.responses import Response
-from pydantic import UrlSchemePermittedError
 
 
 app = FastAPI()
@@ -63,7 +62,6 @@ def index_page(username: Optional[str] = Cookie(default=None)):
             response = Response(login_page , media_type="text/html")
             response.delete_cookie(key="username")
             return response
-
         try:
             user = users[valid_username]
         except KeyError:
@@ -72,8 +70,8 @@ def index_page(username: Optional[str] = Cookie(default=None)):
             return response
         return Response(
             f"Привет, {users[valid_username]['name']}!<br />"
-            f"Баланс: {users[valid_username]['balance']}"
-            , media_type="text/html")
+            f"Баланс: {users[valid_username]['balance']}",
+            media_type="text/html")
 
 @app.post("/login")
 def process_login_page(data: dict = Body(...)):
@@ -93,7 +91,6 @@ def process_login_page(data: dict = Body(...)):
             "success": True,
             "message": f"Привет, {user['name']}!<br />Баланс: {user['balance']}"
         }),
-        f"Привет: {user['name']}!<br />Баланс: {user['balance']}",
         media_type='application/json')
 
     cookie_value = base64.b64encode(username.encode()).decode() + "." + \
