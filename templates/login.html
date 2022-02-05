@@ -49,6 +49,7 @@
             let response_json = await response.json();
             let body = document.querySelector('body');
             body.style.display = "block";
+            body.style.display = "8px";
             body.innerHTML = response_json.message;
             if (response_json.success) {
                 body.style.backgroundColor = "white";
